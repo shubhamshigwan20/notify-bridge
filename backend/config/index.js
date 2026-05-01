@@ -8,6 +8,7 @@ const configs = {
   pgDatabase: process.env.PGDATABASE,
   pgUser: process.env.PGUSER,
   pgPassword: process.env.PGPASSWORD,
+  jwtSecret: process.env.JWT_SECRET,
 };
 
 const configSchema = z.object({
@@ -17,6 +18,7 @@ const configSchema = z.object({
   pgDatabase: z.string(),
   pgUser: z.string(),
   pgPassword: z.string(),
+  jwtSecret: z.string(),
 });
 
 const verifyConfig = async () => {
@@ -34,6 +36,15 @@ const verifyConfig = async () => {
 
 verifyConfig();
 
-const { port, pgHost, pgPort, pgDatabase, pgUser, pgPassword } = configs;
+const { port, pgHost, pgPort, pgDatabase, pgUser, pgPassword, jwtSecret } =
+  configs;
 
-module.exports = { port, pgHost, pgPort, pgDatabase, pgUser, pgPassword };
+module.exports = {
+  port,
+  pgHost,
+  pgPort,
+  pgDatabase,
+  pgUser,
+  pgPassword,
+  jwtSecret,
+};
