@@ -3,10 +3,20 @@ const { z } = require("zod");
 
 const configs = {
   port: Number(process.env.PORT),
+  pgHost: process.env.PGHOST,
+  pgPort: 5432,
+  pgDatabase: process.env.PGDATABASE,
+  pgUser: process.env.PGUSER,
+  pgPassword: process.env.PGPASSWORD,
 };
 
 const configSchema = z.object({
   port: z.number("please enter positive integer for PORT").int().positive(),
+  pgHost: z.string(),
+  pgPort: z.number(),
+  pgDatabase: z.string(),
+  pgUser: z.string(),
+  pgPassword: z.string(),
 });
 
 const verifyConfig = async () => {
@@ -24,6 +34,6 @@ const verifyConfig = async () => {
 
 verifyConfig();
 
-const { port } = configs;
+const { port, pgHost, pgPort, pgDatabase, pgUser, pgPassword } = configs;
 
-module.exports = { port };
+module.exports = { port, pgHost, pgPort, pgDatabase, pgUser, pgPassword };
