@@ -18,10 +18,9 @@ const addNewApiKey = async (
   rate_limit = 100,
 ) => {
   const result = await db.query(
-    `INSERT INTO api_keys (id,workspace_id,key_hash,rate_limit) VALUES ($1, $2, $3, NULL) RETURNING id, workspace_id, key_hash, rate_limit`,
-    [api_key_id, workspace_id, key_hash],
+    `INSERT INTO api_keys (id,workspace_id,key_hash,rate_limit) VALUES ($1, $2, $3, $4) RETURNING id, workspace_id, key_hash, rate_limit`,
+    [api_key_id, workspace_id, key_hash, rate_limit],
   );
-  console.log("a45", result);
   if (!result.rowCount) {
     throw new Error("failed to create api key");
   }
