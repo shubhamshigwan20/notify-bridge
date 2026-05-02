@@ -5,19 +5,19 @@ const { jwtSecret } = require("../config/index");
 const {
   addNewWorkspace,
   addNewApiKey,
-} = require("../repositories/auth.respositories");
+} = require("../repositories/auth.repositories");
 
 const workspaceSignupService = async (name) => {
   const workspace_id = uuid();
   const api_key_id = uuid();
-  const res = await addNewWorkspace(name, workspace_id);
+  await addNewWorkspace(name, workspace_id);
   const payload = {
     name: name,
     workspace_id: workspace_id,
   };
   const api_key = jwt.sign(payload, jwtSecret);
   const key_hash = await bcrypt.hash(api_key, 10);
-  const res2 = await addNewApiKey(api_key_id, workspace_id, key_hash);
+  await addNewApiKey(api_key_id, workspace_id, key_hash);
 
   return { api_key, workspace_id };
 };

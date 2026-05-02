@@ -21,20 +21,12 @@ const configSchema = z.object({
   jwtSecret: z.string(),
 });
 
-const verifyConfig = async () => {
-  try {
-    const parseResult = configSchema.safeParse(configs);
+const parseResult = configSchema.safeParse(configs);
 
-    if (!parseResult.success) {
-      console.log(parseResult.error);
-      process.exit(1);
-    }
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-verifyConfig();
+if (!parseResult.success) {
+  console.log(parseResult.error);
+  process.exit(1);
+}
 
 const { port, pgHost, pgPort, pgDatabase, pgUser, pgPassword, jwtSecret } =
   configs;
